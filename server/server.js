@@ -98,7 +98,7 @@ function restOfTheCode() {
         console.log(req.user);
         num += 1;
     });
-    app.get("/leaderboard", cors(), (req, res) => {
+    app.get("/leaderboardGet", cors(), (req, res) => {
         res.header('Access-Control-Allow-Credentials', true);
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -269,9 +269,9 @@ function restOfTheCode() {
     }
     if (true){//process.env.NODE_ENV === "production") {
         //Set static folder
-        app.use(express.static("client/build"));
-        app.get("/*", (req, res) => {
-            res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+        app.use(express.static("chess426/build"));
+        app.get("/", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "chess426", "build", "index.html"));
         });
     }
     server.listen(PORT, () => {
