@@ -8,21 +8,23 @@ const auth = require("./routes/auth");
 const User = require("./models/Users")
 const PORT = process.env.PORT || 8000;
 const cors = require('cors');
+
 const corsOptions = {
     origin: function(origin, callback) {
         callback(null, true);
     },
     credentials: true,
 }
-const https = require("https");
+const http = require("http");
 const app = express();
-const server = https.createServer(app);
+
+const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server, {
     cors: corsOptions
 });
 const Chess = require("chess.js");
-const MONGO_URI = process.env.MONGODB_URL  || /*"mongodb://127.0.0.1:27017/Login-Test" ||*/ "mongodb+srv://Admin:Noahsamax21@chess-storage.8hzgy.mongodb.net/ChessData?retryWrites=true&w=majority";
+const MONGO_URI = process.env.MONGODB_URL  || "mongodb://127.0.0.1:27017/Login-Test" //|| //"mongodb+srv://Admin:Noahsamax21@chess-storage.8hzgy.mongodb.net/ChessData?retryWrites=true&w=majority";
 const EloCalc = require("arpad");
 const eloCalc = new EloCalc();
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
@@ -48,7 +50,6 @@ function restOfTheCode() {
         saveUninitialized: false,
         store: userStorage,
         key: "express.sid",
-        cookie: {secure: true},
         unset: "destroy"
     })
     app.use(sessionMiddleware);
@@ -58,7 +59,7 @@ function restOfTheCode() {
     app.use(express.json());
     io.use(wrap(passport.initialize()));
     io.use(wrap(passport.session()));
-
+    app.use(cors(corsOptions));
 
 
     async function getTest() {
@@ -73,7 +74,7 @@ function restOfTheCode() {
 
 // Routes
 
-    app.use(cors(corsOptions));
+
     app.use("/api/auth", auth);
 
 //https://github.com/socketio/socket.io/blob/master/examples/passport-example/index.js#L76-L80
