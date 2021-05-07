@@ -14,9 +14,9 @@ const corsOptions = {
     },
     credentials: true,
 }
-const http = require("http");
+const https = require("https");
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server, {
     cors: corsOptions
@@ -48,6 +48,7 @@ function restOfTheCode() {
         saveUninitialized: false,
         store: userStorage,
         key: "express.sid",
+        cookie: {secure: true},
         unset: "destroy"
     })
     app.use(sessionMiddleware);
