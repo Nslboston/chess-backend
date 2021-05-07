@@ -50,7 +50,12 @@ function restOfTheCode() {
         saveUninitialized: false,
         store: userStorage,
         key: "express.sid",
-        unset: "destroy"
+        unset: "destroy",
+        cookie: {
+            sameSite: "none",
+            secure: false,
+            httpOnly: true
+        }
     })
     app.use(sessionMiddleware);
     io.use(wrap(sessionMiddleware));
