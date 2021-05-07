@@ -1,0 +1,3 @@
+[submodule "chess426"]
+	path = chess426
+	url = https://github.com/Nslboston/chess426.git

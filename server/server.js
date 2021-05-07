@@ -24,7 +24,7 @@ const io = new Server(server, {
     cors: corsOptions
 });
 const Chess = require("chess.js");
-const MONGO_URI = process.env.MONGODB_URL  || "mongodb://127.0.0.1:27017/Login-Test" //|| //"mongodb+srv://Admin:Noahsamax21@chess-storage.8hzgy.mongodb.net/ChessData?retryWrites=true&w=majority";
+const MONGO_URI = process.env.MONGODB_URL  || "mongodb://127.0.0.1:27017/Login-Test" //
 const EloCalc = require("arpad");
 const eloCalc = new EloCalc();
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
@@ -267,7 +267,13 @@ function restOfTheCode() {
         io.to(winner).to(loser).emit("elo message", {winner: {username: winner, elo: newWinElo}, loser: {username: loser, elo: newLossElo}});
 
     }
-
+    if (true){//process.env.NODE_ENV === "production") {
+        //Set static folder
+        app.use(express.static("client/build"));
+        app.get("/*", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+        });
+    }
     server.listen(PORT, () => {
         console.log(`Listening on ${PORT}`);
     });
