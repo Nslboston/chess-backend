@@ -8,11 +8,13 @@ const auth = require("./routes/auth");
 const User = require("./models/Users")
 const PORT = process.env.PORT || 8000;
 const cors = require('cors');
-
+const domain = process.env.URL || "localhost:8000"
 const corsOptions = {
-    origin: function(origin, callback) {
-        callback(null, true);
-    },
+    domain: domain,
+    origin: domain,//function(origin, callback) {
+        //callback(null, true);
+    //},
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
 }
 const http = require("http");
@@ -40,21 +42,22 @@ mongoose
 
     })
     .catch(err => console.log(err));
-
+app.set("trust proxy", 1);
 function restOfTheCode() {
     app.use(express.urlencoded({ extended: false }));
     const userStorage = MongoStore.create({client: mongoose.connection.getClient(), autoRemove:"native"});
     const sessionMiddleware = session({
         secret: process.env.SECURITYCODE || "super secret code",
         resave: false,
+        proxy: true,
         saveUninitialized: false,
         store: userStorage,
         key: "express.sid",
         unset: "destroy",
         cookie: {
-            sameSite: "none",
             secure: false,
-            httpOnly: true
+            httpOnly: false,
+            maxAge: null,
         }
     })
     app.use(sessionMiddleware);
