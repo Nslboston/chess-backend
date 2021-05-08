@@ -7,9 +7,6 @@ import {socket} from "../variables/socket.js"
 import {domain} from "../variables/domain";
 //Server sends game info with game id to send back,
 export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) {
-    function handleClick(square) {
-        console.log(square);
-    };
     let onlineGame = (opponent) => (opponent != "AI (3000)" && opponent != "Random (0)" && opponent != "");
 
     const [board, setBoard] = useState("start");
@@ -39,11 +36,8 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
         if (onlineGame(opponent)) {
             let interval = setInterval(() => {updateTime()}, 100);
             prevTime = Date.now();
-            console.log("this works at least");
             //Res has {pgn, whiteTime, blackTime}
             socket.on("chess response", (res) => {
-                console.log("Response received");
-                console.log(`${res}`);
                 let newGame = new Chess();
                 newGame.load_pgn(res.pgn);
                 time = {white: res.whiteTime, black: res.blackTime};
@@ -123,11 +117,10 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
                 },
                 data: game.fen()
             })
-            console.log(result);
             makeMove(result.data.substring(0,2), result.data.substring(2,4));
         }
         catch (err) {
-            console.log("Whoops!");
+
         }
     }
     let makeMove = function(sourceSquare, targetSquare) {
@@ -157,7 +150,7 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
         else if (!game.in_check() && !onlineGame(opponent)) {
             setEndMessage("");
         }
-        console.log(game.in_check());
+
         if (game.game_over() && !onlineGame(opponent)) {
             newEndMessage = newEndMessage.concat("Game Over!")
         }
@@ -186,7 +179,7 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
     function updateTime() {
         if (!game.game_over()) {
             let curTime = Date.now()
-            console.log(game.turn());
+
             if (game.turn() == "w") {
 
                 let newTime = time.white - (curTime - prevTime);

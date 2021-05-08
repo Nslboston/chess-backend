@@ -33,7 +33,6 @@ function App() {
             if (result.data != "") {
                 setUserInfo({loggedIn: true, username: result.data.username, elo: result.data.stats.elo});
             }
-            console.log(result.data);
         }
         catch(err) {
         }

@@ -26,7 +26,7 @@ export default function LoginPage({info, setInfo}) {
                 },
                 withCredentials: true
             });
-            console.log(result);
+
             setInfo({loggedIn: true, username: username})
             setUsername("");
             setPassword("");

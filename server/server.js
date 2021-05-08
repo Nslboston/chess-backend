@@ -99,14 +99,12 @@ function restOfTheCode() {
     let num = 0;
     app.get("/api", cors(), (req, res) => {
         res.json({message: `Hello! ${num}`, user: res.locals.currentUser});
-        console.log(req.user);
         num += 1;
     });
     app.get("/leaderboardGet", cors(), (req, res) => {
         res.header('Access-Control-Allow-Credentials', true);
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        console.log(req.user);
         User.find({}).then((result) => res.send(result.map((val) => {
             return {
                 username: val.username,
@@ -142,10 +140,8 @@ function restOfTheCode() {
 
 //Implement way to count time
     io.on("connect", (socket) => {
-        console.log("user connected");
         socket.on("disconnect", () => {
             socket.removeAllListeners();
-            console.log("user disconnected");
         })
         socket.on("message", (msg) => {
             //console.log(`message ${msg}`);
@@ -234,7 +230,6 @@ function restOfTheCode() {
         try {
             whiteInfo = await User.findOne({username: white});
             blackInfo = await User.findOne({username: black});
-            console.log(whiteInfo);
         }
         catch (err) {
             io.to(white).to(black).emit("error", "database failure");

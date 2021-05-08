@@ -18,7 +18,7 @@ export default function Homepage() {
                     <br></br>
                     <p>Logging in allows you to access multiplayer games: Simply enter the multiplayer tab and start queuing to be matched using a "matchmaking system"
                         that matches you with the next person to start queuing. Don't expect your rating to have anything to do with the skill of your opponent.
-                    Note that logging in and registering use the same form</p>
+                    Note that logging in and registering use the same form.</p>
                     <br></br>
                     <p>This website uses an elo system to handle your ranking, so this isn't as bad as it seems; If you lose to a superior opponent, you will lose less points
                     than if you lose to an inferior one. This helps to reduce the impact of mismatched games on your overall rating, though wins and losses update the same way

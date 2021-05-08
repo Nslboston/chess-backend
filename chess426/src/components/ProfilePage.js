@@ -8,7 +8,7 @@ import {domain} from "../variables/domain";
 export default function ProfilePage() {
     const [profile, setProfile] = useState({});
     let getProfile = async function() {
-        console.log("Finding profile");
+
         try {
             const result = await axios({
                 method: "get",
@@ -18,7 +18,7 @@ export default function ProfilePage() {
             if (result.data != undefined) {
                 setProfile(result.data);
             }
-            console.log(result.data)
+
         }
         catch(err) {
             console.log(err);
@@ -28,8 +28,7 @@ export default function ProfilePage() {
         getProfile().then();
     }, []);
     if (profile != undefined && JSON.stringify(profile) != "{}" && JSON.stringify(profile) != "\"\"") {
-        console.log(JSON.stringify(profile));
-        console.log("This is ")
+
         return (
             <div className={"centered"}>
                 <p className={"title is-3"}>{profile.username}</p>
