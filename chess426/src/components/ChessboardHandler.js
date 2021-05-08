@@ -209,7 +209,7 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
             <div className={"columns is-centered"}>
                 <div className={"column is-desktop is-half"}>
                     <h5 className={"title is-5"}>{opponent}</h5>
-                    <Chessboard onSquareClick={handleClick} transitionDuration = {0} position = {board} onDrop = {onDrop} orientation = {side} className={"centered"}/>
+                    <Chessboard transitionDuration = {0} position = {board} onDrop = {onDrop} orientation = {side} className={"centered"}/>
                     <br></br>
                     <p className={"title is-5"}>{(userInfo.loggedIn) ? `${userInfo.username} (${userInfo.elo})` : "Guest (1000?)"}</p>
                     {(opponent == "" || opponent == "AI (3000)" || opponent == "Random (0)") ? <button className={"button"} onClick={() => {
