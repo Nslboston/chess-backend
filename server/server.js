@@ -141,7 +141,9 @@ function restOfTheCode() {
 //Implement way to count time
     io.on("connect", (socket) => {
         socket.on("disconnect", () => {
-            queue = queue.filter((elem) => (elem != socket.request.user.username));
+            if (socket.request.user != undefined) {
+                queue = queue.filter((elem) => (elem != socket.request.user.username));
+            }
             socket.removeAllListeners();
         })
         socket.on("message", (msg) => {
