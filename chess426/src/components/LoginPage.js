@@ -44,6 +44,7 @@ export default function LoginPage({info, setInfo}) {
                 <div className={"columns"}>
                     <div className={"column is-narrow-desktop is-centered"}>
                         <div className={"field"}>
+                            <p className={"title is-5"}>Login/Register</p>
                             <input type={"text"} className = {"input"} placeholder={"Username"} onChange={onUserChange} value={username}/>
                             <input type={"password"} className={"input"} placeholder={"Password"} onChange={onPasswordChange} value={password}/>
                             <button onClick={sendLoginRequest} className={"button"}>Login</button>
