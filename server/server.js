@@ -8,6 +8,7 @@ const auth = require("./routes/auth");
 const User = require("./models/Users")
 const PORT = process.env.PORT || 8000;
 const cors = require('cors');
+const path = require("path");
 const domain = process.env.URL || "localhost:8000"
 const corsOptions = {
     domain: domain,
@@ -274,11 +275,10 @@ function restOfTheCode() {
         //Set static folder
         app.use(express.static("chess426/build"));
         app.all("/", (req, res) => {
-            console.log(path);
-            res.sendFile(path.resolve(__dirname, "chess426", "build", "index.html"));
+            res.sendFile(path.resolve(__dirname, "..", "chess426", "build", "index.html"));
         });
         app.all("/:page", (req, res) => {
-            res.sendFile(path.resolve(__dirname, "chess426", "build", "index.html"));
+            res.sendFile(path.resolve(__dirname, "..", "chess426", "build", "index.html"));
         });
     }
     server.listen(PORT, () => {
