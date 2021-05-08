@@ -176,7 +176,7 @@ function restOfTheCode() {
         })
         //Message has game id, move
         socket.on("chess move", (msg) =>{
-            if (games[msg.id] == undefined) {
+            if (games[msg.id] == undefined || gameRef.winner != "") {
                 return;
             }
 
@@ -188,10 +188,12 @@ function restOfTheCode() {
                 gameRef.blackTime = gameRef.blackTime - (Date.now() - gameRef.prevTime);
             }
             if (gameRef.whiteTime < 0) {
+                gameRef.winner = gameRef.black;
                 endGame("win", gameRef.black, gameRef.white).then();
                 return;
             }
             if (gameRef.blackTime < 0) {
+                gameRef.winner = gameRef.white;
                 endGame("win", gameRef.white, gameRef.black).then();
                 return;
             }
@@ -201,15 +203,18 @@ function restOfTheCode() {
             if(gameRef.state.game_over()) {
                 if (gameRef.state.in_checkmate()) {
                     if (gameRef.state.turn() == "b") {
+                        gameRef.winner = gameRef.white;
                         io.to(gameRef.white).to(gameRef.black).emit("game over", {winner: gameRef.white})
                         endGame("win", gameRef.white, gameRef.black).then();
                     }
                     else {
+                        gameRef.winner = gameRef.black;
                         io.to(gameRef.white).to(gameRef.black).emit("game over", {winner: gameRef.black})
                         endGame("win", gameRef.black, gameRef.white).then();
                     }
                 }
                 else {
+                    gameRef.winner="draw";
                     io.to(gameRef.white).to(gameRef.black).emit("game over", {winner: "draw"})
                     endGame("draw", gameRef.white, gameRef.black).then();
                 }
