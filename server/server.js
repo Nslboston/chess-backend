@@ -273,7 +273,11 @@ function restOfTheCode() {
     if (true){//process.env.NODE_ENV === "production") {
         //Set static folder
         app.use(express.static("chess426/build"));
-        app.all("/*", (req, res) => {
+        app.all("/", (req, res) => {
+            console.log(path);
+            res.sendFile(path.resolve(__dirname, "chess426", "build", "index.html"));
+        });
+        app.all("/:page", (req, res) => {
             res.sendFile(path.resolve(__dirname, "chess426", "build", "index.html"));
         });
     }
