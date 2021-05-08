@@ -26,8 +26,9 @@ export default function LoginPage({info, setInfo}) {
                 },
                 withCredentials: true
             });
-
-            setInfo({loggedIn: true, username: username})
+            if (result.data.stats != undefined) {
+                setInfo({loggedIn: true, username: username, elo: result.data.stats.elo});
+            }
             setUsername("");
             setPassword("");
             // eslint-disable-next-line no-restricted-globals

@@ -51,6 +51,7 @@ export default function ChessboardHandler({opponent, side, userInfo, gameInfo}) 
                     setEndMessage(endMessage)
                 }
                 else {
+                    endMessage = "";
                     setEndMessage("");
                 }
             })
