@@ -110,7 +110,7 @@ function App() {
             </Route>
 
             <Route path={"/login"}>
-                <LoginPage info = {userInfo} setInfo = {setUserInfo}/>
+                <LoginPage info = {userInfo} setInfo = {setUserInfo} getProfile={getProfile}/>
             </Route>
 
             <Route path={"/profile"}>

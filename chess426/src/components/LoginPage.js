@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import "../App.css";
 import {domain} from "../variables/domain";
 
-export default function LoginPage({info, setInfo}) {
+export default function LoginPage({info, setInfo, getProfile}) {
     //testAcc has password abcde
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -26,11 +26,10 @@ export default function LoginPage({info, setInfo}) {
                 },
                 withCredentials: true
             });
-            if (result.data.stats != undefined) {
-                setInfo({loggedIn: true, username: username, elo: result.data.stats.elo});
-            }
+            setInfo({loggedIn: true, username: username});
             setUsername("");
             setPassword("");
+            getProfile();
             // eslint-disable-next-line no-restricted-globals
             //location.reload();
         }

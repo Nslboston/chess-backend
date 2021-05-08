@@ -176,7 +176,7 @@ function restOfTheCode() {
         })
         //Message has game id, move
         socket.on("chess move", (msg) =>{
-            if (games[msg.id] == undefined || gameRef.winner != "") {
+            if (games[msg.id] == undefined || games[msg.id].winner != "") {
                 return;
             }
 
